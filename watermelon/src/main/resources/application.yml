@@ -1,0 +1,35 @@
+server:
+  port: 8761
+
+spring:
+  application:
+    name: watermelon
+  devtools:
+    livereload:
+      port: 35730
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+  info:
+    env:
+      enabled: on
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    registerWithEureka: off
+    fetchRegistry: off
+    serviceUrl:
+      defaultZone: https://${eureka.instance.hostname}:${server.port}/eureka/
+
+info:
+  app:
+    name: ${spring.application.name}
+    version: @project.version@
+  owner:
+    name: 李井田
+    email: ljngtan@qq.com
