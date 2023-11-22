@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping("/user")
-public class UserController extends BaseController<Long, UserDto, UserService> {
+public class PlatformController extends BaseController<Long, UserDto, UserService> {
 
     @GetMapping("/page")
     public Page<UserDto> page(UserDto userDto, PageRequest pageRequest) {

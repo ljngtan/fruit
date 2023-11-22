@@ -27,4 +27,6 @@ public class UserDto {
     @NotBlank(groups = {Save.class, Update.class})
     private String email;
 
+    private boolean enabled;
+
 }

@@ -5,7 +5,7 @@ import com.plant.fruit.waxberry.BaseService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-public interface UserService extends BaseService<Long, UserDto> {
+public interface PlatformService extends BaseService<Long, UserDto> {
 
     Page<UserDto> page(UserDto userDto, PageRequest pageRequest);
 

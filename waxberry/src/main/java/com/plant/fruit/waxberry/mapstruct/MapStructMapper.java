@@ -1,9 +1,9 @@
 package com.plant.fruit.waxberry.mapstruct;
 
-public interface MapStructMapper<ENTITY, DTO> {
+public interface MapStructMapper<T, DTO> {
 
-    DTO entityToDto(ENTITY entity);
+    DTO entityToDto(T t);
 
-    ENTITY dtoToEntity(DTO dto);
+    T dtoToEntity(DTO dto);
 
 }

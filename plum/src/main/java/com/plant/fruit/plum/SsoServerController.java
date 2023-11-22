@@ -44,7 +44,7 @@ public class SsoServerController {
             username = StrUtil.trim(username);
             password = StrUtil.trim(password);
 
-            UserDto user = userClient.getUserByUsername(username);
+            UserDto user = userClient.getByUsername(username);
             if (ObjUtil.isNull(user)) {
                 mitigateAgainstTimingAttack(password);
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED);

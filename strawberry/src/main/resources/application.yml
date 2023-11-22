@@ -17,7 +17,7 @@ spring:
             - Path=/sso/**
   data:
     redis:
-      database: 1
+      database: 15
       host: localhost
       port: 6379
   devtools:

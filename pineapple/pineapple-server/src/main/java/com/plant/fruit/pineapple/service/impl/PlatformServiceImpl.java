@@ -14,7 +14,7 @@ import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class PlatformServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
@@ -38,7 +38,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserDto> page(UserDto userDto, PageRequest pageRequest) {
-
         return null;
     }
 
