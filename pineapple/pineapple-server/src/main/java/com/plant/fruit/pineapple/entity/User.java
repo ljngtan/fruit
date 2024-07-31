@@ -5,12 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.SQLRestriction;
 
 @Data
 @Entity
 @SQLDelete(sql = "UPDATE user SET deleted = true WHERE id = ?") // 删除时做逻辑删除
-@Where(clause = "deleted = false") // 查询时过滤已删除记录
+@SQLRestriction("deleted = false") // 查询时过滤已删除记录
 public class User {
 
     @Id
@@ -18,7 +18,7 @@ public class User {
     private Long id;
 
     /**
-     * 账号
+     * 用户名
      */
     private String username;
 
@@ -28,7 +28,7 @@ public class User {
     private String password;
 
     /**
-     * 姓名
+     * 名字
      */
     private String name;
 
@@ -41,11 +41,6 @@ public class User {
      * 电子邮箱
      */
     private String email;
-
-    /**
-     * 头像
-     */
-    private String headImage;
 
     /**
      * 是否启用

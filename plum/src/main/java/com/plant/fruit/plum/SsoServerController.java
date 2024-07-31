@@ -1,8 +1,8 @@
 package com.plant.fruit.plum;
 
-import cn.dev33.satoken.config.SaSsoConfig;
 import cn.dev33.satoken.secure.BCrypt;
-import cn.dev33.satoken.sso.SaSsoProcessor;
+import cn.dev33.satoken.sso.config.SaSsoServerConfig;
+import cn.dev33.satoken.sso.processor.SaSsoServerProcessor;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
@@ -31,16 +31,16 @@ public class SsoServerController {
 
     @RequestMapping("/sso/*")
     public Object ssoRequest() {
-        return SaSsoProcessor.instance.serverDister();
+        return SaSsoServerProcessor.instance.dister();
     }
 
     @Autowired
-    private void configSso(SaSsoConfig sso, RestTemplateBuilder restTemplateBuilder) {
+    private void configSso(SaSsoServerConfig sso, RestTemplateBuilder restTemplateBuilder) {
         prepareTimingAttackProtection();
 
-        sso.setNotLoginView(() -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
+        sso.notLoginView = () -> ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
-        sso.setDoLoginHandle((username, password) -> {
+        sso.doLoginHandle = (username, password) -> {
             username = StrUtil.trim(username);
             password = StrUtil.trim(password);
 
@@ -52,11 +52,11 @@ public class SsoServerController {
 
             StpUtil.login(username);
             return StpUtil.getTokenValue();
-        });
+        };
 
 
         RestTemplate restTemplate = restTemplateBuilder.build();
-        sso.setSendHttp(url -> restTemplate.getForObject(url, String.class));
+        sso.sendHttp = url -> restTemplate.getForObject(url, String.class);
     }
 
     private void prepareTimingAttackProtection() {

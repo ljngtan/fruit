@@ -2,16 +2,15 @@ package com.plant.fruit.waxberry;
 
 import com.plant.fruit.waxberry.validation.group.Save;
 import com.plant.fruit.waxberry.validation.group.Update;
+import jakarta.annotation.Resource;
 import jakarta.validation.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 public abstract class BaseController<ID, DTO, S extends BaseService<ID, DTO>> {
 
-    @Autowired
+    @Resource
     protected S service;
 
     @PostMapping("/create")

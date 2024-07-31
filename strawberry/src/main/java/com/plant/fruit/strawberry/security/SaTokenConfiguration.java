@@ -31,7 +31,10 @@ public class SaTokenConfiguration {
         return new SaReactorFilter()
                 .addInclude(saTokenProperties.getIncludes())
                 .addExclude(saTokenProperties.getExcludes())
-                .setAuth(auth -> {
+                .setBeforeAuth(obj -> {
+
+                })
+                .setAuth(obj -> {
                     for (ResourceDto resource : resources) {
                         List<RoleDto> roles = resource.getRoles();
                         if (!CollUtil.isEmpty(roles)) {

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.4</version>
+        <version>3.2.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -22,14 +22,15 @@
         <module>plum</module>
         <module>pineapple</module>
         <module>peanut</module>
+        <module>olive</module>
     </modules>
 
     <properties>
-        <java.version>17</java.version>
-        <spring-cloud.version>2022.0.4</spring-cloud.version>
-        <hutool.version>5.8.22</hutool.version>
-        <sa-token.version>1.37.0</sa-token.version>
-        <redisson.version>3.23.5</redisson.version>
+        <java.version>21</java.version>
+        <spring-cloud.version>2023.0.2</spring-cloud.version>
+        <hutool.version>5.8.28</hutool.version>
+        <sa-token.version>1.38.0</sa-token.version>
+        <redisson.version>3.30.0</redisson.version>
         <lombok-mapstruct.version>0.2.0</lombok-mapstruct.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <sip.version>1.3.0-91</sip.version>
@@ -64,11 +65,6 @@
                 <version>${redisson.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>javax.sip</groupId>
-                <artifactId>jain-sip-api</artifactId>
-                <version>${sip.version}</version>
-            </dependency>
             <dependency>
                 <groupId>javax.sip</groupId>
                 <artifactId>jain-sip-ri</artifactId>

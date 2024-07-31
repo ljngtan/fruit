@@ -1,5 +1,6 @@
 package com.plant.fruit.peanut.sip;
 
+import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.ObjUtil;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sip.*;
 import java.util.Properties;
+import java.util.concurrent.Executor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -24,15 +26,23 @@ public class SipConfiguration {
     private final InetUtils inetUtils;
 
     @Bean
+    public Executor sipListenerExecutor() {
+        return ThreadUtil.newFixedExecutor(sipProperties.getListenerThreadSize(), "sipListener-", true);
+    }
+
+    @Bean
     public Properties sipEnvironment() {
         Properties properties = new Properties();
-        properties.setProperty(SipConstant.IP_ADDRESS, StrUtil.blankToDefault(sipProperties.getIp(), inetUtils.findFirstNonLoopbackAddress().getHostAddress()));
+        String ipAddress = inetUtils.findFirstNonLoopbackHostInfo().getIpAddress();
+        properties.setProperty(SipConstant.IP_ADDRESS, StrUtil.nullToDefault(sipProperties.getIp(), ipAddress));
         properties.setProperty(SipConstant.STACK_NAME, sipProperties.getStackName());
-        properties.setProperty(SipConstant.LOG4J_LOGGER_NAME, sipProperties.getLoggerName());
+        properties.setProperty(SipConstant.THREAD_POOL_SIZE, StrUtil.toString(sipProperties.getMessageChannelSize()));
+        properties.setProperty(SipConstant.LOG4J_LOGGER_NAME, "javax.sip.SipStack");
+        properties.setProperty(SipConstant.TRACE_LEVEL, sipProperties.getLogLevel());
         return properties;
     }
 
-    // @Bean
+    @Bean
     @SneakyThrows
     public SipProvider tlsSipProvider(Properties sipEnvironment) {
         SipFactory sipFactory = SipFactory.getInstance();
